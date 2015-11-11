@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
+<hibernate-reverse-engineering>
+  <schema-selection match-catalog="dentista" match-schema="public"/>
+  <table-filter match-name="det_consulta_serv"/>
+  <table-filter match-name="hist_examen_clinico"/>
+  <table-filter match-name="antecedente_personal"/>
+  <table-filter match-name="unidad_medida"/>
+  <table-filter match-name="categoria_servicio"/>
+  <table-filter match-name="historia_clinica"/>
+  <table-filter match-name="diagnostico_pre"/>
+  <table-filter match-name="diagnostico_def"/>
+  <table-filter match-name="hist_hab_noc"/>
+  <table-filter match-name="laboratorios_externos"/>
+  <table-filter match-name="producto"/>
+  <table-filter match-name="ubigeo"/>
+  <table-filter match-name="contrato"/>
+  <table-filter match-name="compra"/>
+  <table-filter match-name="hist_ante_personal"/>
+  <table-filter match-name="servicio_pieza"/>
+  <table-filter match-name="pieza"/>
+  <table-filter match-name="embarazo"/>
+  <table-filter match-name="cliente"/>
+  <table-filter match-name="habito_nocivo"/>
+  <table-filter match-name="tipo_doc"/>
+  <table-filter match-name="empleado"/>
+  <table-filter match-name="examen_clinico"/>
+  <table-filter match-name="persona"/>
+  <table-filter match-name="usuario"/>
+  <table-filter match-name="consulta"/>
+  <table-filter match-name="detalle_compra"/>
+  <table-filter match-name="servicio"/>
+  <table-filter match-name="ocupacion"/>
+  <table-filter match-name="hist_diagnost_def"/>
+  <table-filter match-name="proveedor"/>
+  <table-filter match-name="grado_instruccion"/>
+  <table-filter match-name="cita"/>
+</hibernate-reverse-engineering>

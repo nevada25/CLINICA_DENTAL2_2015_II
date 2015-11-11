@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 10/11/2015 02:03:03 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="entidad.Contrato" table="contrato" schema="public" optimistic-lock="version">
+        <id name="idContrato" type="int">
+            <column name="id_contrato" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="consulta" class="entidad.Consulta" fetch="select">
+            <column name="id_consulta" length="20" not-null="true" />
+        </many-to-one>
+        <property name="fechaConsult" type="date">
+            <column name="fecha_consult" length="13" not-null="true" />
+        </property>
+        <property name="fechaRegistro" type="date">
+            <column name="fecha_registro" length="13" not-null="true" />
+        </property>
+        <set name="citas" table="cita" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_contrato" not-null="true" />
+            </key>
+            <one-to-many class="entidad.Cita" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 10/11/2015 02:03:03 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="entidad.Ubigeo" table="ubigeo" schema="public" optimistic-lock="version">
+        <id name="idUbigeo" type="int">
+            <column name="id_ubigeo" />
+            <generator class="assigned" />
+        </id>
+        <property name="departamento" type="string">
+            <column name="departamento" length="100" />
+        </property>
+        <property name="provincia" type="string">
+            <column name="provincia" length="100" />
+        </property>
+        <property name="distrito" type="string">
+            <column name="distrito" length="100" />
+        </property>
+        <property name="estado" type="string">
+            <column name="estado" length="1" />
+        </property>
+        <set name="personasForIdUbigeoNac" table="persona" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_ubigeo_nac" />
+            </key>
+            <one-to-many class="entidad.Persona" />
+        </set>
+        <set name="personasForIdUbigeoAct" table="persona" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_ubigeo_act" />
+            </key>
+            <one-to-many class="entidad.Persona" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 10/11/2015 02:03:03 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="entidad.HistoriaClinica" table="historia_clinica" schema="public" optimistic-lock="version">
+        <id name="idHistoriaClinica" type="int">
+            <column name="id_historia_clinica" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="cliente" class="entidad.Cliente" fetch="select">
+            <column name="id_cliente" not-null="true" />
+        </many-to-one>
+        <property name="nroHistoria" type="string">
+            <column name="nro_historia" length="20" not-null="true" />
+        </property>
+        <property name="comentario" type="string">
+            <column name="comentario" length="300" />
+        </property>
+        <property name="antecedentesFamiliar" type="string">
+            <column name="antecedentes_familiar" length="300" />
+        </property>
+        <property name="fechaReg" type="date">
+            <column name="fecha_reg" length="13" not-null="true" />
+        </property>
+        <property name="horaReg" type="time">
+            <column name="hora_reg" length="21" not-null="true" />
+        </property>
+        <property name="responsableApoderado" type="string">
+            <column name="responsable_apoderado" length="150" />
+        </property>
+        <property name="motivoConsulta" type="string">
+            <column name="motivo_consulta" length="350" />
+        </property>
+        <property name="peso" type="big_decimal">
+            <column name="peso" precision="5" />
+        </property>
+        <property name="talla" type="big_decimal">
+            <column name="talla" precision="3" />
+        </property>
+        <property name="pa" type="string">
+            <column name="pa" length="20" />
+        </property>
+        <property name="estado" type="string">
+            <column name="estado" length="1" not-null="true" />
+        </property>
+        <set name="histAntePersonals" table="hist_ante_personal" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_historia_clinica" not-null="true" />
+            </key>
+            <one-to-many class="entidad.HistAntePersonal" />
+        </set>
+        <set name="histExamenClinicos" table="hist_examen_clinico" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_historia_clinica" not-null="true" />
+            </key>
+            <one-to-many class="entidad.HistExamenClinico" />
+        </set>
+        <set name="histDiagnostDefs" table="hist_diagnost_def" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_historia_clinica" not-null="true" />
+            </key>
+            <one-to-many class="entidad.HistDiagnostDef" />
+        </set>
+        <set name="histHabNocs" table="hist_hab_noc" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_historia_clinica" not-null="true" />
+            </key>
+            <one-to-many class="entidad.HistHabNoc" />
+        </set>
+        <set name="diagnosticoPres" table="diagnostico_pre" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_historia_clinica" not-null="true" />
+            </key>
+            <one-to-many class="entidad.DiagnosticoPre" />
+        </set>
+        <set name="embarazos" table="embarazo" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_historia_clinica" not-null="true" />
+            </key>
+            <one-to-many class="entidad.Embarazo" />
+        </set>
+    </class>
+</hibernate-mapping>

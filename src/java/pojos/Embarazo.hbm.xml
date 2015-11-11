@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 10/11/2015 02:03:03 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="entidad.Embarazo" table="embarazo" schema="public" optimistic-lock="version">
+        <id name="idEmbarazo" type="int">
+            <column name="id_embarazo" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="historiaClinica" class="entidad.HistoriaClinica" fetch="select">
+            <column name="id_historia_clinica" not-null="true" />
+        </many-to-one>
+        <property name="nroSemanas" type="string">
+            <column name="nro_semanas" length="20" not-null="true" />
+        </property>
+        <property name="ultimoControl" type="date">
+            <column name="ultimo_control" length="13" />
+        </property>
+        <property name="trataFarma" type="string">
+            <column name="trata_farma" length="2" />
+        </property>
+    </class>
+</hibernate-mapping>

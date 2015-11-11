@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 10/11/2015 02:03:03 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="entidad.Cita" table="cita" schema="public" optimistic-lock="version">
+        <id name="idCita" type="int">
+            <column name="id_cita" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="contrato" class="entidad.Contrato" fetch="select">
+            <column name="id_contrato" not-null="true" />
+        </many-to-one>
+        <many-to-one name="empleado" class="entidad.Empleado" fetch="select">
+            <column name="id_empleado" not-null="true" />
+        </many-to-one>
+        <property name="fechaCita" type="date">
+            <column name="fecha_cita" length="13" not-null="true" />
+        </property>
+        <property name="hora" type="time">
+            <column name="hora" length="15" not-null="true" />
+        </property>
+        <property name="estado" type="string">
+            <column name="estado" length="1" not-null="true" />
+        </property>
+        <property name="condicion" type="string">
+            <column name="condicion" length="10" not-null="true" />
+        </property>
+        <set name="detConsultaServs" table="det_consulta_serv" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_cita" not-null="true" />
+            </key>
+            <one-to-many class="entidad.DetConsultaServ" />
+        </set>
+    </class>
+</hibernate-mapping>

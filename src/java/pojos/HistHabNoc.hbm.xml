@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 10/11/2015 02:03:03 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="entidad.HistHabNoc" table="hist_hab_noc" schema="public" optimistic-lock="version">
+        <id name="idHistHabNoc" type="int">
+            <column name="id_hist_hab_noc" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="habitoNocivo" class="entidad.HabitoNocivo" fetch="select">
+            <column name="id_habito_nocivo" not-null="true" />
+        </many-to-one>
+        <many-to-one name="historiaClinica" class="entidad.HistoriaClinica" fetch="select">
+            <column name="id_historia_clinica" not-null="true" />
+        </many-to-one>
+        <property name="estado" type="string">
+            <column name="estado" length="1" />
+        </property>
+    </class>
+</hibernate-mapping>

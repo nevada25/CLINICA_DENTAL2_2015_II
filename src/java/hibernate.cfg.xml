@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+    <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+    <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/dentista</property>
+    <property name="hibernate.connection.username">postgres</property>
+    <property name="hibernate.connection.password">root</property>
+    <mapping resource="pojos/HistoriaClinica.hbm.xml"/>
+    <mapping resource="pojos/Embarazo.hbm.xml"/>
+    <mapping resource="pojos/DiagnosticoDef.hbm.xml"/>
+    <mapping resource="pojos/AntecedentePersonal.hbm.xml"/>
+    <mapping resource="pojos/CategoriaServicio.hbm.xml"/>
+    <mapping resource="pojos/HistAntePersonal.hbm.xml"/>
+    <mapping resource="pojos/Ubigeo.hbm.xml"/>
+    <mapping resource="pojos/ExamenClinico.hbm.xml"/>
+    <mapping resource="pojos/DetConsultaServ.hbm.xml"/>
+    <mapping resource="pojos/DiagnosticoPre.hbm.xml"/>
+    <mapping resource="pojos/Servicio.hbm.xml"/>
+    <mapping resource="pojos/Cita.hbm.xml"/>
+    <mapping resource="pojos/Persona.hbm.xml"/>
+    <mapping resource="pojos/DetalleCompra.hbm.xml"/>
+    <mapping resource="pojos/Pieza.hbm.xml"/>
+    <mapping resource="pojos/Contrato.hbm.xml"/>
+    <mapping resource="pojos/LaboratoriosExternos.hbm.xml"/>
+    <mapping resource="pojos/Cliente.hbm.xml"/>
+    <mapping resource="pojos/Compra.hbm.xml"/>
+    <mapping resource="pojos/TipoDoc.hbm.xml"/>
+    <mapping resource="pojos/HistDiagnostDef.hbm.xml"/>
+    <mapping resource="pojos/HistHabNoc.hbm.xml"/>
+    <mapping resource="pojos/UnidadMedida.hbm.xml"/>
+    <mapping resource="pojos/Ocupacion.hbm.xml"/>
+    <mapping resource="pojos/Consulta.hbm.xml"/>
+    <mapping resource="pojos/Proveedor.hbm.xml"/>
+    <mapping resource="pojos/HabitoNocivo.hbm.xml"/>
+    <mapping resource="pojos/GradoInstruccion.hbm.xml"/>
+    <mapping resource="pojos/HistExamenClinico.hbm.xml"/>
+    <mapping resource="pojos/Usuario.hbm.xml"/>
+    <mapping resource="pojos/Empleado.hbm.xml"/>
+    <mapping resource="pojos/ServicioPieza.hbm.xml"/>
+    <mapping resource="pojos/Producto.hbm.xml"/>
+  </session-factory>
+</hibernate-configuration>

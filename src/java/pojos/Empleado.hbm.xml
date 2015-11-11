@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 10/11/2015 02:03:03 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="entidad.Empleado" table="empleado" schema="public" optimistic-lock="version">
+        <id name="idEmpleado" type="int">
+            <column name="id_empleado" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="persona" class="entidad.Persona" fetch="select">
+            <column name="id_persona" not-null="true" />
+        </many-to-one>
+        <set name="detConsultaServs" table="det_consulta_serv" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_empleado" not-null="true" />
+            </key>
+            <one-to-many class="entidad.DetConsultaServ" />
+        </set>
+        <set name="citas" table="cita" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_empleado" not-null="true" />
+            </key>
+            <one-to-many class="entidad.Cita" />
+        </set>
+        <set name="consultas" table="consulta" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_empleado" not-null="true" />
+            </key>
+            <one-to-many class="entidad.Consulta" />
+        </set>
+    </class>
+</hibernate-mapping>

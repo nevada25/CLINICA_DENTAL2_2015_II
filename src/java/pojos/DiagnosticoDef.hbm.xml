@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 10/11/2015 02:03:03 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="entidad.DiagnosticoDef" table="diagnostico_def" schema="public" optimistic-lock="version">
+        <id name="idDiagnosticoDef" type="int">
+            <column name="id_diagnostico_def" />
+            <generator class="assigned" />
+        </id>
+        <property name="cie10" type="string">
+            <column name="cie_10" length="10" not-null="true" />
+        </property>
+        <property name="descripciN" type="string">
+            <column name="descripci_n" length="20" not-null="true" />
+        </property>
+        <set name="histDiagnostDefs" table="hist_diagnost_def" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_diagnostico_def" not-null="true" />
+            </key>
+            <one-to-many class="entidad.HistDiagnostDef" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 10/11/2015 02:03:03 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="entidad.DetConsultaServ" table="det_consulta_serv" schema="public" optimistic-lock="version">
+        <id name="idDetConsultaServ" type="int">
+            <column name="id_det_consulta_serv" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="cita" class="entidad.Cita" fetch="select">
+            <column name="id_cita" not-null="true" />
+        </many-to-one>
+        <many-to-one name="empleado" class="entidad.Empleado" fetch="select">
+            <column name="id_empleado" not-null="true" />
+        </many-to-one>
+        <many-to-one name="servicio" class="entidad.Servicio" fetch="select">
+            <column name="id_servicio" not-null="true" />
+        </many-to-one>
+        <property name="cantidad" type="big_decimal">
+            <column name="cantidad" precision="7" />
+        </property>
+        <property name="total" type="big_decimal">
+            <column name="total" precision="8" not-null="true" />
+        </property>
+        <property name="nroLaboratorioInt" type="string">
+            <column name="nro_laboratorio_int" length="30" />
+        </property>
+        <property name="motivoConsul" type="string">
+            <column name="motivo_consul" length="300" />
+        </property>
+        <set name="servicioPiezas" table="servicio_pieza" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_det_consulta_serv" not-null="true" />
+            </key>
+            <one-to-many class="entidad.ServicioPieza" />
+        </set>
+    </class>
+</hibernate-mapping>
