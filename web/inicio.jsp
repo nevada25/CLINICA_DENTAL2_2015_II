@@ -1,5 +1,20 @@
-<%@include file="cabeza.jsp" %>
-
+<%@include file="WEB-INF/fragmento/top.jspf" %>
+<%
+    try{
+HttpSession sessionstatus=request.getSession();
+Usuario usuaro=(Usuario) sessionstatus.getAttribute("invitado");
+if(!usuaro.getClave().equals("")||!usuaro.getNombre_usuario().equals("")){
+out.println("ID VERIFICACION SESSION:"+sessionstatus.getId());
+out.print("<br/><br/>");
+out.println("SESSION OBTENIDA "+usuaro.getNombre_usuario());
+}else{
+    response.sendRedirect("menulogin.jsp");
+}
+    }catch(Exception e){
+    
+    }
+ 
+%>
 <div class="panel panel-default" style="margin-top: -110px;">
        <%--CABEZA---%>
 	<div class="panel-heading">
@@ -153,4 +168,4 @@
     </div>
 ----%>
     
-<%@include file="pie.jsp" %>
+<%@include file="WEB-INF/fragmento/botton.jspf" %>

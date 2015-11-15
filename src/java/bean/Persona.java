@@ -4,7 +4,7 @@ package bean;
 
 import java.util.Date;
 
-public class Persona  {
+public class Persona {
 
 private int id_persona;
 private int id_grado_instruccion;

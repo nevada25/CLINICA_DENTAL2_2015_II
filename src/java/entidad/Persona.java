@@ -239,6 +239,10 @@ public class Persona  implements java.io.Serializable {
     public void setProveedors(Set proveedors) {
         this.proveedors = proveedors;
     }
+    public void setFotoPersona(Byte foto_persona) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 
 
 

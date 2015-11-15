@@ -39,11 +39,11 @@ public class consola {
     public void consultardatosusuario(){
     usuariodao dao=new usuariodaoimpl();
     
-        for (Usuario ds : dao.consultardatosusua("L")) {
-            System.out.println("NOMBRE USUARIO:"+ds.getNombre_usuario()+"CLAVE:"+ds.getClave()+"PERSONA: "+ds.getNombre());
-        }
-    
-    
+////        for (Usuario ds : dao.consultardatosusua("L")) {
+//            System.out.println("NOMBRE USUARIO:"+ds.getNombre_usuario()+"CLAVE:"+ds.getClave()+"PERSONA: "+ds.getNombre());
+//        }
+//    
+//    
     
     }
     
@@ -94,9 +94,9 @@ public class consola {
     public void mostrarusu(){
         usuariodao id=new usuariodaoimpl();
         
-        for (Usuario ad :id.mostrarusuario()) {
-            System.out.println("NOMBRES USUARIO: "+ad.getNombre_usuario()+"CLAVE: "+ad.getClave());
-        }
+//        for (Usuario ad :id.mostrarusuario()) {
+//            System.out.println("NOMBRES USUARIO: "+ad.getNombre_usuario()+"CLAVE: "+ad.getClave());
+//        }
     
     }
     public void personamos(){

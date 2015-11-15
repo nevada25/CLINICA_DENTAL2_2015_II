@@ -37,10 +37,16 @@ return cn;
     }
 
     @Override
-    public boolean agregarpersona(Persona persona) {
+    public boolean agregarpersona(Persona person) {
         boolean estado = false;
         Statement st=null;
-        String query="";
+        String query="INSERT INTO persona(\n" +
+"            id_persona, id_grado_instruccion, id_ocupacion, id_ubigeo_nac, id_ubigeo_act, id_tipo_doc, nombre,"
+            + " nombres, apepat, apemat,fecha_nac, correo, celular, telefono, sexo, direccion, pagina_web,estado,"
+            + " foto_persona, nro_doc)\n" +
+"    VALUES (null,null,null,null,null,"+person.getId_tipo_doc()+","+person.getNombre()+",null,"+person.getApepat()+","+person.getApemat()+""
+          + ","+person.getFecha_nac()+","+person.getCorreo()+","+person.getCelular()+",null,"+person.getSexo()+","+person.getDireccion()+","
+                + "null,1,"+person.getFoto_pers()+","+person.getNro_doc()+");";
         try {
             st=conec().createStatement();
             st.executeUpdate(query);

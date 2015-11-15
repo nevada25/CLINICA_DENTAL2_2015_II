@@ -1,12 +1,19 @@
 package daoimpl;
+import bean.Privilegio;
 import conexion.conexionprostgres;
 import dao.usuariodao;
 import bean.Usuario;
 import java.sql.Connection;
+
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import util.HibernateUtil;
 public class usuariodaoimpl implements usuariodao{
 public Connection conec(){
 Connection cn=conexionprostgres.conectar();
@@ -30,151 +37,111 @@ public void restablecer() {
         } catch (Exception e) {
         }
     }    
+
     @Override
-    public boolean agregarusuario(Usuario usuario) {
-        boolean estado=false;
-        Statement st=null;
-        String query="INSERT INTO usuario(idusuario, usuario, contrasena)VALUES (null,'"+usuario.getNombre_usuario()+"','"+usuario.getClave()+"')";
+    public Usuario validarusuario(String usuario, String password) {
+         Usuario user=null;
+        Session session=null;
+        SessionFactory sf=null;
+        
         try {
-            st=conec().createStatement();
-            st.executeUpdate(query);
-            guardar();
-            cerrar();
-            estado=true;
+            sf=HibernateUtil.getSessionFactory();
+            session=sf.openSession();
+            Query query=session.createQuery("from Usuario where nombre_usuario='"+usuario+"' and clave='"+password+"' and estado='1'");
+            user=(Usuario)query.uniqueResult();
+            session.close();
         } catch (Exception e) {
-            System.out.println("ERROR:"+e.getMessage());
-            restablecer();
-            cerrar();
+            e.printStackTrace();
+            session.close();
+        }
+        
+        return user;
+    }
+
+    @Override
+    public boolean agragar_usuario(Usuario usuario) {
+         
+        boolean estado=false;
+        SessionFactory sf=null;
+        Session session=null;
+        Transaction transaction=null;
+        
+        try {
+            sf=HibernateUtil.getSessionFactory();
+            session=sf.openSession();
+            transaction=session.beginTransaction();
+            session.save(usuario);
+            transaction.commit();
+            session.close();
+            estado=true;
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            transaction.rollback();
+            session.close();
             estado=false;
         }
         
         return estado;
     }
-  @Override
-    public List<Usuario> mostrarusuario() {
-       List<Usuario> lista = null;
-        Statement st=null;
-        ResultSet rs=null;
-        Usuario usuario=null;
-        String query="SELECT id_usuario, id_persona, nombre_usuario, clave, rol, estado FROM usuario;";
+
+    @Override
+    public Usuario ObtenerUsuario(String usuario, String password) {
+           
+        Statement st = null;
+        ResultSet rs= null;
+        String query = "select * from usuario where login='"+usuario+"' and password='"+password+"' and estado='1'";
+        Usuario u = null;
+        
         try {
-        lista=new ArrayList<>();
-        st=conec().createStatement();
-        rs=st.executeQuery(query);
-        while(rs.next())
-        {
-           usuario=new Usuario();
-           usuario.setId_usuario(rs.getInt("id_usuario"));
-           usuario.setId_persona(rs.getInt("id_persona"));
-           usuario.setNombre_usuario(rs.getString("nombre_usuario"));
-           usuario.setClave(rs.getString("clave"));
-           usuario.setRol(rs.getString("rol"));
-           usuario.setEstado(rs.getString("estado"));
-           lista.add(usuario);
-        }
-        cerrar();
+            st = conec().createStatement();
+            rs=st.executeQuery(query);          
+            while (rs.next()) {
+                u= new Usuario();
+                u.setIdUsuario(rs.getString("id_usuario"));
+                u.setIdRol(rs.getString("id_rol"));
+                u.setLogin(rs.getString("login"));
+                u.setPassword(rs.getString("password"));             
+                
+            }
+            cerrar();
         } catch (Exception e) {
-             System.out.println("ERROR:"+e.getMessage());
             e.printStackTrace();
             cerrar();
         }
-
-        return lista;
-                
+    return u;
     }
+
     @Override
-    public boolean actualizarusuario(Usuario usuario) {
-         boolean estado = false;
-        Statement st=null;
-        String query="";
+    public List<Privilegio> ObtenerPrivUsuario(String usuario){
+           Statement st = null;
+        ResultSet rs= null;
+        String query = "select priv.id_privilegio as id,priv.nombre as nombre from usuario u, "
+                    + "rol r, privilegio priv,rol_privilegio rpr " 
+                    + "where u.id_rol=r.id_rol and r.id_rol=rpr.id_rol and priv.id_privilegio=rpr.id_privilegio "
+                    + "and u.id_usuario='"+usuario+"' and rpr.estado='1'";
+        Privilegio priv = null;
+        List<Privilegio> lista = new ArrayList<Privilegio>();
+        
         try {
-            st=conec().createStatement();
-            st.executeUpdate(query);
-            conec().getAutoCommit();
+            st = conec().createStatement();
+            rs=st.executeQuery(query);          
+            while (rs.next()) {
+                priv= new Privilegio();
+                priv.setIdPrivilegio(rs.getString("id"));
+                priv.setNombre(rs.getString("nombre"));
+                lista.add(priv);
+            }
             cerrar();
-            estado = true;
         } catch (Exception e) {
-            System.out.println("ERROR: " + e.getMessage());
-            restablecer();
-            cerrar();
-            estado = false;
-        }
-
-        return estado;
-    }
-    @Override
-    public boolean eliminarusuario(int id_usuario) {
-         boolean estado = false;
-        Statement st=null;
-        String query="";
-        try {
-            st=conec().createStatement();
-            st.executeUpdate(query);
-            conec().getAutoCommit();
-            cerrar();
-            estado = true;
-        } catch (Exception e) {
-            System.out.println("ERROR: " + e.getMessage());
-            restablecer();
-            cerrar();
-            estado = false;
-        }
-
-        return estado;
-    }
-    @Override
-    public Usuario Validarusuario(String user, String clave) {
-         boolean estado = false;
-        Statement st=null;
-        String query="";
-        Usuario usuario=null;
-        try {
-            st=conec().createStatement();
-            st.executeUpdate(query);
-            conec().getAutoCommit();
-            cerrar();
-            estado = true;
-        } catch (Exception e) {
-            System.out.println("ERROR: " + e.getMessage());
-            restablecer();
-            cerrar();
-            estado = false;
-        }
-
-        return usuario;
-    }
-@Override
-    public List<Usuario> consultardatosusua(String nombre_usuario) {
-       List<Usuario> lista = null;
-        Statement st=null;
-        ResultSet rs=null;
-        Usuario usuario=null;
-        String query="SELECT usuario.nombre_usuario as user,usuario.clave as clave,"
-                + "persona.nombre||' '||persona.apepat||' '||persona.apemat AS  persona " +
-                  "FROM   public.persona, public.usuario " +
-                  "WHERE  persona.id_persona = usuario.id_persona and usuario.nombre_usuario='"+nombre_usuario+"'";
-        try {
-        lista=new ArrayList<>();
-        st=conec().createStatement();
-        rs=st.executeQuery(query);
-        while(rs.next())
-        {
-           usuario=new Usuario();
-           
-           usuario.setNombre(rs.getString("persona"));
-           usuario.setNombre_usuario(rs.getString("user"));
-           usuario.setClave(rs.getString("clave"));
-           
-           lista.add(usuario);
-        }
-        cerrar();
-        } catch (Exception e) {
-             System.out.println("ERROR:"+e.getMessage());
             e.printStackTrace();
             cerrar();
         }
+    return lista;
+    
+    }
+    }
+    
 
-        return lista;
-                
-    }
-    }
+    
+    

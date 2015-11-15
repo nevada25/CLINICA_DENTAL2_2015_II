@@ -6,6 +6,7 @@
 package dao;
 
 
+import bean.Privilegio;
 import bean.Usuario;
 import java.util.List;
 
@@ -14,10 +15,8 @@ import java.util.List;
  * @author NEVADA
  */
 public interface usuariodao {
-    public boolean  agregarusuario(Usuario usuario);
-    public List<Usuario> mostrarusuario();
-    public boolean actualizarusuario(Usuario usuario);
-    public boolean eliminarusuario(int id_usuario);
-    public Usuario Validarusuario(String usuario,String contrasena);
-    public List<Usuario> consultardatosusua(String nombre_usuario);
+      public Usuario validarusuario (String usuario,String password);
+    public boolean agragar_usuario(Usuario usuario);
+    public Usuario ObtenerUsuario(String usuario,String password);
+    public List<Privilegio> ObtenerPrivUsuario(String usuario);
 }
